@@ -8,6 +8,14 @@ Frequency Chart
 The code is extracted from https://github.com/iSoron/uhabits
 All credits goes to https://github.com/iSoron/uhabits
 
+## Screenshots
+
+[![One][screen1th]][screen1]
+[![Two][screen2th]][screen2]
+
+
+
+
 How to use
 ===============
 
@@ -48,6 +56,7 @@ Sample
 ```
 
 
-
+[screen1]: screenshots/screenshot1.PNG
+[screen2]: screenshots/screenshot2.PNG
 
 
