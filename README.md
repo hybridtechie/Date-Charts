@@ -10,8 +10,8 @@ All credits goes to https://github.com/iSoron/uhabits
 
 ## Screenshots
 
-[![One][screen1th]][screen1]
-[![Two][screen2th]][screen2]
+[![One][screen1]][screen1]
+[![Two][screen2]][screen2]
 
 
 
