@@ -7,6 +7,33 @@ Frequency Chart
 The code is extracted from https://github.com/iSoron/uhabits
 All credits goes to https://github.com/iSoron/uhabits
 
+How to use
+===============
+
+```java
+    allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+```java 
+    dependencies {
+		implementation 'com.github.hybridtechie:FreqChart:1.0.1'
+	}
+```
+
+```xml
+ <me.nithin.james.freqchart.FrequencyChart
+        android:id="@+id/frequencyChart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+```
+
+Sample
+===============
+
 ```aidl
     public static List<FrequencyChartTimestamp> getTimeStampData() {
         int[] marks = {
@@ -62,11 +89,5 @@ All credits goes to https://github.com/iSoron/uhabits
 ```
 
 
-```xml
- <me.nithin.james.freqchart.FrequencyChart
-        android:id="@+id/frequencyChart"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-```
 
 
