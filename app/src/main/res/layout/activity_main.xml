@@ -27,5 +27,18 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="230dp"/>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="200dp"/>
+
+    <me.nithin.james.HistoryChart
+        android:id="@+id/historyCard"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:gravity="center"
+        android:paddingBottom="0dp"/>
+
 
 </LinearLayout>

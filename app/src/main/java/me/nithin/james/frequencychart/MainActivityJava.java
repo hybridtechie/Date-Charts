@@ -6,10 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.HashMap;
 import java.util.List;
 
-import me.nithin.james.FrequencyDayChart;
 import me.nithin.james.DateRangeChart;
-import me.nithin.james.utils.SampleDataUtils;
+import me.nithin.james.FrequencyDayChart;
+import me.nithin.james.HistoryChart;
 import me.nithin.james.models.Timestamp;
+import me.nithin.james.utils.SampleDataUtils;
 
 public class MainActivityJava extends AppCompatActivity {
 
@@ -36,5 +37,9 @@ public class MainActivityJava extends AppCompatActivity {
         dateRangeChart.setValueTextColor(getColor(R.color.black));
         timestampList = sampleDataUtils.getSampleTimeStampDataForStreakChart();
         dateRangeChart.populateWithTimeStampData(timestampList);
+
+        HistoryChart historyChart = findViewById(R.id.historyCard);
+        historyChart.setColor(getColor(R.color.blue_500));
+        historyChart.populateWithRandomData();
     }
 }
