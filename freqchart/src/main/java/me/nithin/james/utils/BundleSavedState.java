@@ -1,4 +1,4 @@
-package me.nithin.james.freqchart;
+package me.nithin.james.utils;
 
 import android.os.Bundle;
 import android.os.Parcel;
@@ -24,7 +24,7 @@ public class BundleSavedState extends android.support.v4.view.AbsSavedState {
 
     public final Bundle bundle;
 
-    BundleSavedState(Parcelable superState, Bundle bundle) {
+    public BundleSavedState(Parcelable superState, Bundle bundle) {
         super(superState);
         this.bundle = bundle;
     }

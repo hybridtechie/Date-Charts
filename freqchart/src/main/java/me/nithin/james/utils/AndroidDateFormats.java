@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Álinson Santos Xavier <isoron@gmail.com>
+ * Copyright (C) 2017 Álinson Santos Xavier <isoron@gmail.com>
  *
  * This file is part of Loop Habit Tracker.
  *
@@ -16,22 +16,20 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-package me.nithin.james.freqchart;
+package me.nithin.james.utils;
 
 import android.support.annotation.NonNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-import java.util.TimeZone;
 
-public class DateFormats {
+import static android.text.format.DateFormat.getBestDateTimePattern;
 
+public class AndroidDateFormats {
     @NonNull
-    public static SimpleDateFormat fromSkeleton(@NonNull String skeleton,
-                                                @NonNull Locale locale) {
-        SimpleDateFormat df = new SimpleDateFormat(skeleton, locale);
-        df.setTimeZone(TimeZone.getTimeZone("UTC"));
-        return df;
+    public static SimpleDateFormat fromSkeleton(@NonNull String skeleton) {
+        Locale locale = Locale.getDefault();
+        skeleton = getBestDateTimePattern(locale, skeleton);
+        return DateFormats.fromSkeleton(skeleton, locale);
     }
 }

@@ -1,4 +1,4 @@
-package me.nithin.james.freqchart;
+package me.nithin.james;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -15,7 +15,13 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Random;
 
-public class FrequencyChart extends ScrollableChart {
+import me.nithin.james.freqchart.R;
+import me.nithin.james.utils.AndroidDateFormats;
+import me.nithin.james.utils.DateUtils;
+import me.nithin.james.models.ScrollableChart;
+import me.nithin.james.models.Timestamp;
+
+public class FrequencyDayChart extends ScrollableChart {
     private Paint pGrid;
 
     private float em;
@@ -47,10 +53,10 @@ public class FrequencyChart extends ScrollableChart {
     private boolean isBackgroundTransparent;
 
     @NonNull
-    private HashMap<FrequencyChartTimestamp, Integer[]> frequency;
+    private HashMap<Timestamp, Integer[]> frequency;
     private int maxFreq;
 
-    public FrequencyChart(Context context) {
+    public FrequencyDayChart(Context context) {
         super(context);
         init();
     }
@@ -92,7 +98,7 @@ public class FrequencyChart extends ScrollableChart {
         prevRect = new RectF();
     }
 
-    public FrequencyChart(Context context, AttributeSet attrs) {
+    public FrequencyDayChart(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.frequency = new HashMap<>();
         init();
@@ -113,13 +119,13 @@ public class FrequencyChart extends ScrollableChart {
         postInvalidate();
     }
 
-    public void setFrequency(HashMap<FrequencyChartTimestamp, Integer[]> frequency) {
+    public void setFrequency(HashMap<Timestamp, Integer[]> frequency) {
         this.frequency = frequency;
         maxFreq = getMaxFreq(frequency);
         postInvalidate();
     }
 
-    private int getMaxFreq(HashMap<FrequencyChartTimestamp, Integer[]> frequency) {
+    private int getMaxFreq(HashMap<Timestamp, Integer[]> frequency) {
         int maxValue = 1;
 
         for (Integer[] values : frequency.values()) {
@@ -218,7 +224,7 @@ public class FrequencyChart extends ScrollableChart {
     }
 
     private void drawColumn(Canvas canvas, RectF rect, GregorianCalendar date) {
-        Integer values[] = frequency.get(new FrequencyChartTimestamp(date));
+        Integer values[] = frequency.get(new Timestamp(date));
         float rowHeight = rect.height() / 8.0f;
         prevRect.set(rect);
 
@@ -284,7 +290,7 @@ public class FrequencyChart extends ScrollableChart {
                 values[j] = rand.nextInt(5);
             }
 
-            frequency.put(new FrequencyChartTimestamp(date), values);
+            frequency.put(new Timestamp(date), values);
             date.add(Calendar.MONTH, -1);
         }
     }
