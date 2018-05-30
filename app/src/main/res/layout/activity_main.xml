@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivityJava">
 
-    <me.nithin.james.FrequencyChart
+    <me.nithin.james.FrequencyDayChart
         android:id="@+id/frequencyChart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -20,7 +20,7 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="200dp"/>
 
-    <me.nithin.james.StreakChart
+    <me.nithin.james.DateRangeChart
         android:id="@+id/streakChart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

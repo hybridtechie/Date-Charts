@@ -1,4 +1,4 @@
-package me.nithin.james.freqchart;
+package me.nithin.james.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import me.nithin.james.utils.Timestamp;
+import me.nithin.james.models.Timestamp;
 
 /**
  * Created by HyBr!dT3cH!3 on 5/29/2018..

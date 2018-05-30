@@ -37,16 +37,16 @@ import java.util.Random;
 import java.util.TimeZone;
 
 import me.nithin.james.freqchart.R;
-import me.nithin.james.streak.Streak;
+import me.nithin.james.models.DateRange;
+import me.nithin.james.models.Timestamp;
 import me.nithin.james.utils.DateUtils;
-import me.nithin.james.utils.Timestamp;
 
 import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.getSize;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
 import static me.nithin.james.utils.InterfaceUtils.getDimension;
 
-public class StreakChart extends View {
+public class DateRangeChart extends View {
     private Paint paint;
 
     private long minLength;
@@ -61,7 +61,7 @@ public class StreakChart extends View {
 
     private int primaryColor;
 
-    private List<Streak> streaks;
+    private List<DateRange> dateRanges;
 
     private boolean isBackgroundTransparent;
 
@@ -81,23 +81,21 @@ public class StreakChart extends View {
 
     private int valueTextColor;
 
-    private int reverseTextColor;
-
-    public StreakChart(Context context) {
+    public DateRangeChart(Context context) {
         super(context);
         init();
     }
 
-    public StreakChart(Context context, AttributeSet attrs) {
+    public DateRangeChart(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
     /**
-     * Returns the maximum number of streaks this view is able to show, given
+     * Returns the maximum number of dateRanges this view is able to show, given
      * its current size.
      *
-     * @return max number of visible streaks
+     * @return max number of visible dateRanges
      */
     public int getMaxStreakCount() {
         return (int) Math.floor(getMeasuredHeight() / baseSize);
@@ -105,31 +103,31 @@ public class StreakChart extends View {
 
     public void populateWithRandomData() {
         Timestamp start = DateUtils.getToday();
-        LinkedList<Streak> streaks = new LinkedList<>();
+        LinkedList<DateRange> dateRanges = new LinkedList<>();
 
         for (int i = 0; i < 10; i++) {
             int length = new Random().nextInt(100);
             Timestamp end = start.plus(length);
-            streaks.add(new Streak(start, end));
+            dateRanges.add(new DateRange(start, end));
             start = end.plus(1);
         }
 
-        setStreaks(streaks);
+        setDateRanges(dateRanges);
     }
 
     public void populateWithTimeStampData(List<Timestamp> timestampList) {
         int count = 0;
 
-        LinkedList<Streak> streaks = new LinkedList<>();
+        LinkedList<DateRange> dateRanges = new LinkedList<>();
         int length = timestampList.size() < 10 ? timestampList.size() : 10;
 
         for (int i = 0; i < length; i++) {
             Timestamp end = timestampList.get(count++);
             Timestamp start = timestampList.get(count++);
-            streaks.add(new Streak(start, end));
+            dateRanges.add(new DateRange(start, end));
         }
 
-        setStreaks(streaks);
+        setDateRanges(dateRanges);
     }
 
     public void setColor(int color) {
@@ -139,10 +137,12 @@ public class StreakChart extends View {
 
     public void setLabelColor(int color) {
         this.textColor = color;
+        postInvalidate();
     }
 
     public void setValueTextColor(int color) {
         this.valueTextColor = color;
+        postInvalidate();
     }
 
     public void setIsBackgroundTransparent(boolean isBackgroundTransparent) {
@@ -150,8 +150,8 @@ public class StreakChart extends View {
         initColors();
     }
 
-    public void setStreaks(List<Streak> streaks) {
-        this.streaks = streaks;
+    public void setDateRanges(List<DateRange> dateRanges) {
+        this.dateRanges = dateRanges;
         initColors();
         updateMaxMinLengths();
         requestLayout();
@@ -160,11 +160,11 @@ public class StreakChart extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (streaks.size() == 0) return;
+        if (dateRanges.size() == 0) return;
 
         rect.set(0, 0, width, baseSize);
 
-        for (Streak s : streaks) {
+        for (DateRange s : dateRanges) {
             drawRow(canvas, s, rect);
             rect.offset(0, baseSize);
         }
@@ -176,7 +176,7 @@ public class StreakChart extends View {
 
         if (params != null && params.height == LayoutParams.WRAP_CONTENT) {
             int width = getSize(widthSpec);
-            int height = streaks.size() * baseSize;
+            int height = dateRanges.size() * baseSize;
 
             heightSpec = makeMeasureSpec(height, EXACTLY);
             widthSpec = makeMeasureSpec(width, EXACTLY);
@@ -205,16 +205,16 @@ public class StreakChart extends View {
         updateMaxMinLengths();
     }
 
-    private void drawRow(Canvas canvas, Streak streak, RectF rect) {
+    private void drawRow(Canvas canvas, DateRange dateRange, RectF rect) {
         if (maxLength == 0) return;
 
-        float percentage = (float) streak.getLength() / maxLength;
+        float percentage = (float) dateRange.getLength() / maxLength;
         float availableWidth = width - 2 * maxLabelWidth;
         if (shouldShowLabels) availableWidth -= 2 * textMargin;
 
         float barWidth = percentage * availableWidth;
         float minBarWidth =
-                paint.measureText(Long.toString(streak.getLength())) + em;
+                paint.measureText(Long.toString(dateRange.getLength())) + em;
         barWidth = Math.max(barWidth, minBarWidth);
 
         float gap = (width - barWidth) / 2;
@@ -227,14 +227,14 @@ public class StreakChart extends View {
 
         float yOffset = rect.centerY() + 0.3f * em;
 
-        paint.setColor(reverseTextColor);
+        paint.setColor(valueTextColor);
         paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(Long.toString(streak.getLength()), rect.centerX(),
+        canvas.drawText(Long.toString(dateRange.getLength()), rect.centerX(),
                 yOffset, paint);
 
         if (shouldShowLabels) {
-            String startLabel = dateFormat.format(streak.getStart().toJavaDate());
-            String endLabel = dateFormat.format(streak.getEnd().toJavaDate());
+            String startLabel = dateFormat.format(dateRange.getStart().toJavaDate());
+            String endLabel = dateFormat.format(dateRange.getEnd().toJavaDate());
 
             paint.setColor(textColor);
             paint.setTextAlign(Paint.Align.RIGHT);
@@ -249,7 +249,7 @@ public class StreakChart extends View {
         initPaints();
         initColors();
 
-        streaks = Collections.emptyList();
+        dateRanges = Collections.emptyList();
 
         dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -258,6 +258,13 @@ public class StreakChart extends View {
     }
 
     private void initColors() {
+
+        if (primaryColor == 0)
+            primaryColor = ContextCompat.getColor(getContext(), R.color.green_500);
+        if (textColor == 0) textColor = ContextCompat.getColor(getContext(), R.color.blue_500);
+        if (valueTextColor == 0)
+            valueTextColor = ContextCompat.getColor(getContext(), R.color.green_500);
+
         int red = Color.red(primaryColor);
         int green = Color.green(primaryColor);
         int blue = Color.blue(primaryColor);
@@ -266,9 +273,7 @@ public class StreakChart extends View {
         colors[3] = primaryColor;
         colors[2] = Color.argb(192, red, green, blue);
         colors[1] = Color.argb(96, red, green, blue);
-        colors[0] = ContextCompat.getColor(getContext(), R.color.deep_orange_A700);
-        textColor = primaryColor;
-        reverseTextColor = ContextCompat.getColor(getContext(), R.color.green_100);
+        colors[0] = Color.argb(40, red, green, blue);
     }
 
     private void initPaints() {
@@ -289,7 +294,7 @@ public class StreakChart extends View {
         minLength = Long.MAX_VALUE;
         shouldShowLabels = true;
 
-        for (Streak s : streaks) {
+        for (DateRange s : dateRanges) {
             maxLength = Math.max(maxLength, s.getLength());
             minLength = Math.min(minLength, s.getLength());
 

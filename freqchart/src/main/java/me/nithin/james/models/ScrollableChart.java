@@ -1,4 +1,4 @@
-package me.nithin.james.utils;
+package me.nithin.james.models;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewParent;
 import android.widget.Scroller;
+
+import me.nithin.james.utils.BundleSavedState;
 
 public abstract class ScrollableChart extends View
         implements GestureDetector.OnGestureListener,

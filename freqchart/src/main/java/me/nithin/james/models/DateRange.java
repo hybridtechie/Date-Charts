@@ -17,34 +17,32 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.nithin.james.streak;
+package me.nithin.james.models;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import me.nithin.james.utils.Timestamp;
-
 import static me.nithin.james.utils.StringUtils.defaultToStringStyle;
 
-public final class Streak {
+public final class DateRange {
     private final Timestamp start;
 
     private final Timestamp end;
 
-    public Streak(Timestamp start, Timestamp end) {
+    public DateRange(Timestamp start, Timestamp end) {
         this.start = start;
         this.end = end;
     }
 
-    public int compareLonger(Streak other) {
+    public int compareLonger(DateRange other) {
         if (this.getLength() != other.getLength())
             return Long.signum(this.getLength() - other.getLength());
 
         return compareNewer(other);
     }
 
-    public int compareNewer(Streak other) {
+    public int compareNewer(DateRange other) {
         return end.compare(other.end);
     }
 
@@ -74,11 +72,11 @@ public final class Streak {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        Streak streak = (Streak) o;
+        DateRange dateRange = (DateRange) o;
 
         return new EqualsBuilder()
-                .append(start, streak.start)
-                .append(end, streak.end)
+                .append(start, dateRange.start)
+                .append(end, dateRange.end)
                 .isEquals();
     }
 

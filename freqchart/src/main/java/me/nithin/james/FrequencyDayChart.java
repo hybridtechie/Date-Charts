@@ -15,13 +15,13 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Random;
 
-import me.nithin.james.utils.Timestamp;
 import me.nithin.james.freqchart.R;
 import me.nithin.james.utils.AndroidDateFormats;
 import me.nithin.james.utils.DateUtils;
-import me.nithin.james.utils.ScrollableChart;
+import me.nithin.james.models.ScrollableChart;
+import me.nithin.james.models.Timestamp;
 
-public class FrequencyChart extends ScrollableChart {
+public class FrequencyDayChart extends ScrollableChart {
     private Paint pGrid;
 
     private float em;
@@ -56,7 +56,7 @@ public class FrequencyChart extends ScrollableChart {
     private HashMap<Timestamp, Integer[]> frequency;
     private int maxFreq;
 
-    public FrequencyChart(Context context) {
+    public FrequencyDayChart(Context context) {
         super(context);
         init();
     }
@@ -98,7 +98,7 @@ public class FrequencyChart extends ScrollableChart {
         prevRect = new RectF();
     }
 
-    public FrequencyChart(Context context, AttributeSet attrs) {
+    public FrequencyDayChart(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.frequency = new HashMap<>();
         init();
