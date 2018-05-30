@@ -1,4 +1,4 @@
-package me.nithin.james.freqchart;
+package me.nithin.james.utils;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -10,18 +10,18 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 import static java.util.Calendar.DAY_OF_WEEK;
-import static me.nithin.james.freqchart.DateUtils.getStartOfDay;
-import static me.nithin.james.freqchart.StringUtils.defaultToStringStyle;
+import static me.nithin.james.utils.DateUtils.getStartOfDay;
+import static me.nithin.james.utils.StringUtils.defaultToStringStyle;
 
-public final class FrequencyChartTimestamp {
+public final class Timestamp {
 
     public static final long DAY_LENGTH = 86400000;
 
-    public static final FrequencyChartTimestamp ZERO = new FrequencyChartTimestamp(0);
+    public static final Timestamp ZERO = new Timestamp(0);
 
     private final long unixTime;
 
-    public FrequencyChartTimestamp() {
+    public Timestamp() {
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -37,11 +37,11 @@ public final class FrequencyChartTimestamp {
         this.unixTime = now;
     }
 
-    public FrequencyChartTimestamp(GregorianCalendar cal) {
+    public Timestamp(GregorianCalendar cal) {
         this(cal.getTimeInMillis());
     }
 
-    public FrequencyChartTimestamp(long unixTime) {
+    public Timestamp(long unixTime) {
         if (unixTime < 0 || unixTime % DAY_LENGTH != 0)
             throw new IllegalArgumentException(
                     "Invalid unix time: " + unixTime);
@@ -52,7 +52,7 @@ public final class FrequencyChartTimestamp {
     /**
      * Given two timestamps, returns whichever timestamp is the oldest one.
      */
-    public static FrequencyChartTimestamp oldest(FrequencyChartTimestamp first, FrequencyChartTimestamp second) {
+    public static Timestamp oldest(Timestamp first, Timestamp second) {
         return first.unixTime < second.unixTime ? first : second;
     }
 
@@ -71,10 +71,10 @@ public final class FrequencyChartTimestamp {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        FrequencyChartTimestamp frequencyChartTimestamp = (FrequencyChartTimestamp) o;
+        Timestamp timestamp = (Timestamp) o;
 
         return new EqualsBuilder()
-                .append(unixTime, frequencyChartTimestamp.unixTime)
+                .append(unixTime, timestamp.unixTime)
                 .isEquals();
     }
 
@@ -85,12 +85,12 @@ public final class FrequencyChartTimestamp {
                 .toString();
     }
 
-    public FrequencyChartTimestamp minus(int days) {
+    public Timestamp minus(int days) {
         return plus(-days);
     }
 
-    public FrequencyChartTimestamp plus(int days) {
-        return new FrequencyChartTimestamp(unixTime + DAY_LENGTH * days);
+    public Timestamp plus(int days) {
+        return new Timestamp(unixTime + DAY_LENGTH * days);
     }
 
     /**
@@ -98,11 +98,11 @@ public final class FrequencyChartTimestamp {
      * the other timestamp equals this one, returns zero. If the other timestamp
      * is older than this one, returns a negative number.
      */
-    public int daysUntil(FrequencyChartTimestamp other) {
+    public int daysUntil(Timestamp other) {
         return (int) ((other.unixTime - this.unixTime) / DAY_LENGTH);
     }
 
-    public boolean isNewerThan(FrequencyChartTimestamp other) {
+    public boolean isNewerThan(Timestamp other) {
         return compare(other) > 0;
     }
 
@@ -110,11 +110,11 @@ public final class FrequencyChartTimestamp {
      * Returns -1 if this timestamp is older than the given timestamp, 1 if this
      * timestamp is newer, or zero if they are equal.
      */
-    public int compare(FrequencyChartTimestamp other) {
+    public int compare(Timestamp other) {
         return Long.signum(this.unixTime - other.unixTime);
     }
 
-    public boolean isOlderThan(FrequencyChartTimestamp other) {
+    public boolean isOlderThan(Timestamp other) {
         return compare(other) < 0;
     }
 

@@ -20,21 +20,21 @@ How to use
 ===============
 
 ```java
-    allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+allprojects {
+    repositories {
+        ...
+		maven { url 'https://jitpack.io' }  
+    }
 	}
 ```
 ```java 
-    dependencies {
-		implementation 'com.github.hybridtechie:FreqChart:1.0.2'
+dependencies {
+	    implementation 'com.github.hybridtechie:FreqChart:1.0.2'
 	}
 ```
 
 ```xml
- <me.nithin.james.freqchart.FrequencyChart
+ <me.nithin.james.FrequencyChart
         android:id="@+id/frequencyChart"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
@@ -45,8 +45,8 @@ Sample
 
 ```aidl    
      FreqChartUtils freqChartUtils = new FreqChartUtils();
-     List<FrequencyChartTimestamp> frequencyChartTimestampList = freqChartUtils.getSampleTimeStampData();
-     HashMap<FrequencyChartTimestamp, Integer[]> map = freqChartUtils.getWeekdayFrequency(frequencyChartTimestampList);
+     List<FrequencyChartTimestamp> timestampList = freqChartUtils.getSampleTimeStampData();
+     HashMap<FrequencyChartTimestamp, Integer[]> map = freqChartUtils.getWeekdayFrequency(timestampList);
      FrequencyChart frequencyChart = findViewById(R.id.frequencyChart);
      frequencyChart.populateWithRandomData();
      frequencyChart.setFrequency(map);

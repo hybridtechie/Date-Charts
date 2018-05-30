@@ -1,4 +1,6 @@
-package me.nithin.james.freqchart;
+package me.nithin.james.utils;
+
+import android.support.annotation.NonNull;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -30,6 +32,11 @@ public abstract class DateUtils {
     private static Locale getLocale() {
         if (fixedLocale != null) return fixedLocale;
         return Locale.getDefault();
+    }
+
+    @NonNull
+    public static Timestamp getToday() {
+        return new Timestamp(getStartOfToday());
     }
 
     /**

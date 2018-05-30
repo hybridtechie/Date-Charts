@@ -1,4 +1,4 @@
-package me.nithin.james.freqchart;
+package me.nithin.james.utils;
 
 import android.os.Bundle;
 import android.os.Parcel;

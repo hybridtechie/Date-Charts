@@ -1,4 +1,4 @@
-package me.nithin.james.freqchart;
+package me.nithin.james.utils;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
