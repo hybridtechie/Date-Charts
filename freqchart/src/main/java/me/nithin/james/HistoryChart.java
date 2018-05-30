@@ -1,22 +1,3 @@
-/*
- * Copyright (C) 2016 Álinson Santos Xavier <isoron@gmail.com>
- *
- * This file is part of Loop Habit Tracker.
- *
- * Loop Habit Tracker is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Loop Habit Tracker is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-
 package me.nithin.james;
 
 import android.content.Context;
@@ -25,12 +6,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.view.HapticFeedbackConstants;
-import android.view.MotionEvent;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
@@ -101,9 +79,6 @@ public class HistoryChart extends ScrollableChart {
 
     private boolean isNumerical = false;
 
-    @NonNull
-    private Controller controller;
-
     public HistoryChart(Context context) {
         super(context);
         init();
@@ -112,43 +87,6 @@ public class HistoryChart extends ScrollableChart {
     public HistoryChart(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
-    }
-
-    @Override
-    public void onLongPress(MotionEvent e) {
-        onSingleTapUp(e);
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        if (!isEditable) return false;
-
-        performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-        float x, y;
-
-        try {
-            int pointerId = e.getPointerId(0);
-            x = e.getX(pointerId);
-            y = e.getY(pointerId);
-        } catch (RuntimeException ex) {
-            // Android often throws IllegalArgumentException here. Apparently,
-            // the pointer id may become invalid shortly after calling
-            // e.getPointerId.
-            return false;
-        }
-
-        final Timestamp timestamp = positionToTimestamp(x, y);
-        if (timestamp == null) return false;
-
-        Timestamp today = DateUtils.getToday();
-        int offset = timestamp.daysUntil(today);
-        if (offset < checkmarks.length) {
-            boolean isChecked = true;
-        }
-
-        controller.onToggleCheckmark(timestamp);
-        postInvalidate();
-        return true;
     }
 
     public void populateWithRandomData() {
@@ -178,10 +116,6 @@ public class HistoryChart extends ScrollableChart {
         this.primaryColor = color;
         initColors();
         postInvalidate();
-    }
-
-    public void setController(@NonNull Controller controller) {
-        this.controller = controller;
     }
 
     public void setNumerical(boolean numerical) {
@@ -360,12 +294,6 @@ public class HistoryChart extends ScrollableChart {
     private void init() {
         isEditable = false;
         checkmarks = new int[0];
-        controller = new Controller() {
-            @Override
-            public void onToggleCheckmark(Timestamp timestamp) {
-
-            }
-        };
         target = 2;
 
         initColors();
@@ -447,9 +375,5 @@ public class HistoryChart extends ScrollableChart {
 
         baseDate.add(Calendar.DAY_OF_YEAR, -nDays);
         baseDate.add(Calendar.DAY_OF_YEAR, -todayPositionInColumn);
-    }
-
-    public interface Controller {
-        void onToggleCheckmark(Timestamp timestamp);
     }
 }
