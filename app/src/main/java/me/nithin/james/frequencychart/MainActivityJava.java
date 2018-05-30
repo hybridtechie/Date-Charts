@@ -39,7 +39,7 @@ public class MainActivityJava extends AppCompatActivity {
         dateRangeChart.populateWithTimeStampData(timestampList);
 
         HistoryChart historyChart = findViewById(R.id.historyCard);
-        historyChart.setColor(getColor(R.color.grey_50));
+        historyChart.setColor(getColor(R.color.blue_500));
         historyChart.populateWithRandomData();
     }
 }

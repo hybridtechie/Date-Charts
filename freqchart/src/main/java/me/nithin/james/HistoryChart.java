@@ -392,12 +392,12 @@ public class HistoryChart extends ScrollableChart {
             reverseTextColor = Color.WHITE;
         } else {
             colors = new int[3];
-            colors[0] = ContextCompat.getColor(getContext(), R.color.green_500);
+            colors[0] = ContextCompat.getColor(getContext(), R.color.grey_100);
             colors[1] = Color.argb(127, red, green, blue);
             colors[2] = primaryColor;
-            textColor = ContextCompat.getColor(getContext(), R.color.green_500);
+            textColor = ContextCompat.getColor(getContext(), R.color.black_aa);
             reverseTextColor =
-                    ContextCompat.getColor(getContext(), R.color.blue_500);
+                    ContextCompat.getColor(getContext(), R.color.red_500);
         }
     }
 
