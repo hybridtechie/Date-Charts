@@ -79,6 +79,8 @@ public class StreakChart extends View {
 
     private int textColor;
 
+    private int valueTextColor;
+
     private int reverseTextColor;
 
     public StreakChart(Context context) {
@@ -133,6 +135,14 @@ public class StreakChart extends View {
     public void setColor(int color) {
         this.primaryColor = color;
         postInvalidate();
+    }
+
+    public void setLabelColor(int color) {
+        this.textColor = color;
+    }
+
+    public void setValueTextColor(int color) {
+        this.valueTextColor = color;
     }
 
     public void setIsBackgroundTransparent(boolean isBackgroundTransparent) {

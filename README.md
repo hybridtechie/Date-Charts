@@ -44,9 +44,9 @@ Sample
 ===============
 
 ```aidl    
-     FreqChartUtils freqChartUtils = new FreqChartUtils();
-     List<FrequencyChartTimestamp> timestampList = freqChartUtils.getSampleTimeStampData();
-     HashMap<FrequencyChartTimestamp, Integer[]> map = freqChartUtils.getWeekdayFrequency(timestampList);
+     FreqChartUtils sampleDataUtils = new FreqChartUtils();
+     List<FrequencyChartTimestamp> timestampList = sampleDataUtils.getSampleTimeStampData();
+     HashMap<FrequencyChartTimestamp, Integer[]> map = sampleDataUtils.getWeekdayFrequency(timestampList);
      FrequencyChart frequencyChart = findViewById(R.id.frequencyChart);
      frequencyChart.populateWithRandomData();
      frequencyChart.setFrequency(map);

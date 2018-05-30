@@ -8,7 +8,7 @@ import java.util.List;
 
 import me.nithin.james.FrequencyChart;
 import me.nithin.james.StreakChart;
-import me.nithin.james.freqchart.FreqChartUtils;
+import me.nithin.james.freqchart.SampleDataUtils;
 import me.nithin.james.utils.Timestamp;
 
 public class MainActivityJava extends AppCompatActivity {
@@ -18,9 +18,9 @@ public class MainActivityJava extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FreqChartUtils freqChartUtils = new FreqChartUtils();
-        List<Timestamp> timestampList = freqChartUtils.getSampleTimeStampData();
-        HashMap<Timestamp, Integer[]> map = freqChartUtils.getWeekdayFrequency(timestampList);
+        SampleDataUtils sampleDataUtils = new SampleDataUtils();
+        List<Timestamp> timestampList = sampleDataUtils.getSampleTimeStampData();
+        HashMap<Timestamp, Integer[]> map = sampleDataUtils.getWeekdayFrequency(timestampList);
 
         FrequencyChart frequencyChart = findViewById(R.id.frequencyChart);
         frequencyChart.populateWithRandomData();
@@ -32,7 +32,7 @@ public class MainActivityJava extends AppCompatActivity {
         StreakChart streakChart = findViewById(R.id.streakChart);
         streakChart.refreshDrawableState();
         streakChart.setColor(getColor(R.color.red_500));
-        timestampList = freqChartUtils.getSampleTimeStampDataForStreakChart();
+        timestampList = sampleDataUtils.getSampleTimeStampDataForStreakChart();
         streakChart.populateWithTimeStampData(timestampList);
     }
 }

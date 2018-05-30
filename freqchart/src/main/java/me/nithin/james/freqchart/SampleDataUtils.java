@@ -12,7 +12,7 @@ import me.nithin.james.utils.Timestamp;
 /**
  * Created by HyBr!dT3cH!3 on 5/29/2018..
  */
-public class FreqChartUtils {
+public class SampleDataUtils {
 
     public List<Timestamp> getSampleTimeStampData() {
 
@@ -28,7 +28,6 @@ public class FreqChartUtils {
 
         return timestampList;
     }
-
 
     public List<Timestamp> getSampleTimeStampDataForStreakChart() {
 
@@ -66,5 +65,4 @@ public class FreqChartUtils {
         }
         return map;
     }
-
 }
