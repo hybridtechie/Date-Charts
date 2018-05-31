@@ -67,6 +67,8 @@ public class HistoryChart extends ScrollableChart {
 
     private int textColor;
 
+    private int valueColor;
+
     private int reverseTextColor;
 
     private boolean isEditable;
@@ -114,6 +116,18 @@ public class HistoryChart extends ScrollableChart {
 
     public void setColor(int color) {
         this.primaryColor = color;
+        initColors();
+        postInvalidate();
+    }
+
+    public void setTextColor(int color) {
+        this.textColor = color;
+        initColors();
+        postInvalidate();
+    }
+
+    public void setValueTextColor(int color) {
+        this.valueColor = color;
         initColors();
         postInvalidate();
     }
@@ -323,9 +337,9 @@ public class HistoryChart extends ScrollableChart {
             colors[0] = ContextCompat.getColor(getContext(), R.color.grey_100);
             colors[1] = Color.argb(127, red, green, blue);
             colors[2] = primaryColor;
-            textColor = ContextCompat.getColor(getContext(), R.color.black_aa);
+            textColor = textColor;
             reverseTextColor =
-                    ContextCompat.getColor(getContext(), R.color.red_500);
+                    valueColor;
         }
     }
 
