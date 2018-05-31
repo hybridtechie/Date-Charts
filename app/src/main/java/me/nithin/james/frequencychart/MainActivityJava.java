@@ -40,6 +40,8 @@ public class MainActivityJava extends AppCompatActivity {
 
         HistoryChart historyChart = findViewById(R.id.historyCard);
         historyChart.setColor(getColor(R.color.blue_500));
+        historyChart.setTextColor(getColor(R.color.green_500));
+        historyChart.setValueTextColor(getColor(R.color.red_500));
         historyChart.populateWithRandomData();
     }
 }
