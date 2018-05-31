@@ -132,6 +132,15 @@ public class DateRangeChart extends View {
 
     public void setColor(int color) {
         this.primaryColor = color;
+        int red = Color.red(primaryColor);
+        int green = Color.green(primaryColor);
+        int blue = Color.blue(primaryColor);
+
+        colors = new int[4];
+        colors[3] = primaryColor;
+        colors[2] = Color.argb(192, red, green, blue);
+        colors[1] = Color.argb(96, red, green, blue);
+        colors[0] = Color.argb(40, red, green, blue);
         postInvalidate();
     }
 
