@@ -1,1 +1,1 @@
-include ':app', ':freqchart'
+include ':app', ':dateCharts'
